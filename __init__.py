@@ -4,13 +4,13 @@ import fnmatch
 import ROOT
 
 
-from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, TLegend, gDirectory
+from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, THStack, TLegend, gDirectory
 
 
 from tools.chain import Chain
 from tools.histcomparator import HistComparator
 from tools.tree import Tree
-
+from tools.treestack import TreeStack
 
 gROOT.Macro( os.path.expanduser( '~/rootlogon.C' ) )
 

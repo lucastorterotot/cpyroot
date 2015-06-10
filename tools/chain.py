@@ -1,7 +1,5 @@
 import glob
 
-print 'importing Chain'
-
 from ROOT import TChain, TFile, TTree
 
 class Chain( object ):
