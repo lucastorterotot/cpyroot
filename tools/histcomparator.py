@@ -1,7 +1,5 @@
 from ROOT import TCanvas, TPad, TH1F, TLegend
 
-
-
 class HistComparator(object):
     '''Comparison of two histograms.
 

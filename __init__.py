@@ -6,6 +6,12 @@ import ROOT
 
 from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, TLegend, gDirectory
 
+
+from tools.chain import Chain
+from tools.histcomparator import HistComparator
+from tools.tree import Tree
+
+
 gROOT.Macro( os.path.expanduser( '~/rootlogon.C' ) )
 
 # adding current directory in PYTHONPATH
@@ -99,8 +105,8 @@ def load(filename, caller_vars):
     trees = _load(caller_vars, current_file, [ROOT.TTree])
     dirs = _load(caller_vars, current_file, dirTypes)
 
-def treeComp(t1, t2, var, cut):
-    t1.SetWeight(1./t1.GetEntries(), 'global')
-    t2.SetWeight(1./t2.GetEntries(), 'global')
-    t1.Draw(var, cut)
-    t2.Draw(var, cut, 'same')
+# def treeComp(t1, t2, var, cut):
+#     t1.SetWeight(1./t1.GetEntries(), 'global')
+#     t2.SetWeight(1./t2.GetEntries(), 'global')
+#     t1.Draw(var, cut)
+#     t2.Draw(var, cut, 'same')

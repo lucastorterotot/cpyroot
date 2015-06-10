@@ -1,9 +1,19 @@
 import glob
 
+print 'importing Chain'
+
 from ROOT import TChain, TFile, TTree
 
 class Chain( object ):
-    def __init__(self, treeName, pattern ):
+    '''
+    TChain with file auto-loading. Use just like a TChain.
+    '''
+    def __init__(self, pattern, treeName=None):
+        '''
+        pattern:  pattern for files, e.g. "*.root"
+        treeName: name of the trees in your files. if not provided, 
+                  attempt to guess the name of your tree.
+        '''
         self.files = []
         if treeName is None:
             treeName = self.guessTreeName(pattern)
@@ -31,10 +41,3 @@ class Chain( object ):
     def __getattr__(self, attr):
         return getattr(self.chain, attr)
 
-if __name__ == '__main__':
-
-    import sys
-
-    treeName = sys.argv[1]
-    pattern = sys.argv[2]
-    chain = Chain( treeName, pattern )
