@@ -11,6 +11,7 @@ from tools.chain import Chain
 from tools.histcomparator import HistComparator
 from tools.tree import Tree
 from tools.treestack import TreeStack
+from tools.style import *
 
 gROOT.Macro( os.path.expanduser( '~/rootlogon.C' ) )
 
