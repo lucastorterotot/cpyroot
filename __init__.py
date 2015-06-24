@@ -4,7 +4,7 @@ import fnmatch
 import ROOT
 
 
-from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, THStack, TLegend, gDirectory
+from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, THStack, TLegend, gDirectory, gStyle, TF1
 
 
 from tools.chain import Chain
@@ -12,6 +12,7 @@ from tools.histcomparator import HistComparator
 from tools.tree import Tree
 from tools.treestack import TreeStack
 from tools.style import *
+from tools.officialstyle import * 
 
 gROOT.Macro( os.path.expanduser( '~/rootlogon.C' ) )
 
