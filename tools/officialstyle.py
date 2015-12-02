@@ -1,4 +1,4 @@
-from ROOT import kBlack, TLatex, TCanvas, TPad
+from ROOT import kBlack, TLatex, TCanvas, TPad, gStyle
 
 def officialStyle(style):
     style.SetCanvasColor (0)
@@ -113,7 +113,7 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
     else:
         latex.SetTextAlign(31) # align right=31
         latex.SetTextSize(textSize*0.6/0.75)
-        latex.DrawLatex(0.965,lumyloc,Form(" (%.0f TeV)", energy))
+        latex.DrawLatex(0.965,lumyloc," {energy} TeV".format(energy=energy))
   
  
     latex.SetTextAlign(cmsalign) # align left / right
