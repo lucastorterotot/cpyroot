@@ -15,10 +15,11 @@ def officialStyle(style):
     style.SetPadBorderSize (10)
     style.SetPadBorderMode (0)
     
-    style.SetPadBottomMargin(0.13)
+    style.SetPadBottomMargin(0.15)
     style.SetPadTopMargin (0.05)
     style.SetPadLeftMargin (0.17)
-    style.SetPadRightMargin (0.03566265)
+    # style.SetPadRightMargin (0.03566265)
+    style.SetPadRightMargin (0.065)
     style.SetPadGridX (0)
     style.SetPadGridY (0)
     style.SetPadTickX (1)
@@ -58,7 +59,7 @@ def officialStyle(style):
     style.SetStripDecimals(False)
     style.SetLineStyleString(11,"20 10")
     style.SetTitleSize (0.055,"Y")
-    style.SetTitleOffset(1.60,"Y")
+    style.SetTitleOffset(1.55,"Y")
     style.SetLabelOffset(0.010,"Y")
     style.SetLabelSize (0.050,"Y")
     style.SetLabelFont (42 ,"Y")
@@ -98,13 +99,13 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
         latex.SetTextAlign(31) # align left, right=31
         latex.SetTextSize(textSize*0.6/0.75)
         if(lumi > 1000. ):
-            latex.DrawLatex(0.965,lumyloc,
+            latex.DrawLatex(0.93,lumyloc,
                             " {lumi} fb^{{-1}} ({energy} TeV)".format(
                                 lumi=lumi/1000.,
                                 energy=energy
                             ))
         else:
-            latex.DrawLatex(0.965,lumyloc,
+            latex.DrawLatex(0.93,lumyloc,
                             " {lumi} pb^{{-1}} ({energy} TeV)".format(
                                 lumi=lumi,
                                 energy=energy
@@ -113,7 +114,7 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
     else:
         latex.SetTextAlign(31) # align right=31
         latex.SetTextSize(textSize*0.6/0.75)
-        latex.DrawLatex(0.965,lumyloc," {energy} TeV".format(energy=energy))
+        latex.DrawLatex(0.93,lumyloc," {energy} TeV".format(energy=energy))
   
  
     latex.SetTextAlign(cmsalign) # align left / right
@@ -162,8 +163,16 @@ class HistStyle:
             hist.SetFillColor( self.fillColor )
         hist.SetFillStyle( self.fillStyle )
 
-traditional = HistStyle(markerColor=4, markerStyle=21)
-pf = HistStyle(markerColor=2)
+traditional_style = HistStyle(
+    markerColor=4,
+    markerStyle=21,
+    lineColor=4,
+)
+pf_style = HistStyle(
+    markerColor=2,
+    markerStyle=8,
+    lineColor=2
+)
 
 
 class CanvasRatio( TCanvas ):
@@ -234,37 +243,54 @@ class CanvasRatio( TCanvas ):
 
 if __name__ == "__main__":
 
-    from ROOT import gStyle, TH1F, gPad, TLegend
+    from ROOT import gStyle, TH1F, gPad, TLegend, TF1
 
     officialStyle(gStyle)
-    h = TH1F("h", "; p_{T} (GeV); a.u.", 10, -5, 5)
+
+    c1 = TCanvas("c1", "c1") 
+    
+    h = TH1F("h", "; p_{T} (GeV); stuff_{index}^{Power}", 50, -40000, 40000)
     h.Sumw2()
-    h.FillRandom("gaus", 1000)
+    gaus1 = TF1('gaus1', 'gaus')
+    gaus1.SetParameters(1, 0, 5000)
+    h.FillRandom("gaus1", 5000)
     h.Draw()
-    pf.format(h)
+    pf_style.format(h)
 
-    h2 = TH1F("h2", "; p_{T} (GeV); a.u.", 10, -5, 5)
+    gPad.Update()
+
+    h2 = TH1F("h2", "; p_{T} (GeV); stuff_{Index}^{Power}", 50, -40000, 40000)
     h2.Sumw2()
-    h2.FillRandom("gaus", 1000)
+    gaus1.SetParameters(1, 0, 10000)
+    h2.FillRandom("gaus1", 5000)
     h2.Draw("same")
-    traditional.format(h2)
+    traditional_style.format(h2)
 
-    legend = TLegend(0.67, 0.71, 0.92, 0.89)
-    legend.AddEntry(h, "PF")
-    legend.AddEntry(h2, "Traditional")
+    legend = TLegend(0.65, 0.76, 0.9, 0.91)
+    legend.AddEntry(h, "PF", "p")
+    legend.AddEntry(h2, "Traditional", "p")
     legend.Draw()
      
     cmsPrel(25000., 8., True)
 
+    c2 = TCanvas("c2", "c2")
+    h.Draw()
+    h2.Draw('same')
+    cmsPrel(-1, 8., True)    
+
     gPad.Update()
 
     cr  = CanvasRatio('cr', 'canvas with ratio', 25000, 8., True)
-    cr.draw(h, True)
-    cr.draw(h2, True, 'same')
+    h3 = h.Clone('h3')
+    h4 = h2.Clone('h4')
+    cr.draw(h3, True)
+    cr.draw(h4, True, 'same')
     
-    hratio = h.Clone('hratio')
-    hratio.Divide(h2)
+    hratio = h3.Clone('hratio')
+    hratio.Divide(h4)
     hratio.SetYTitle('ratio')
     cr.draw(hratio, False)
 
+    gPad.Update()
+    
     
