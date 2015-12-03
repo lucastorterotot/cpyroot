@@ -4,7 +4,7 @@ import fnmatch
 import ROOT
 
 
-from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, THStack, TLegend, gDirectory, gStyle, TF1, TEventList
+from ROOT import gROOT, TFile, TCanvas, TPad, gPad, TBrowser, TH2F, TH1F, TH1D , TProfile, THStack, TLegend, gDirectory, gStyle, TF1, TEventList, TGraphErrors
 from ROOT import kRed, kGray, kWhite, kBlue, kGreen, kYellow
 
 
