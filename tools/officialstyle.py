@@ -294,3 +294,6 @@ if __name__ == "__main__":
     gPad.Update()
     
     
+    c1.SaveAs('c1.pdf')
+    c2.SaveAs('c2.pdf')
+    cr.SaveAs('cr.pdf')
