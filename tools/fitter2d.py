@@ -1,10 +1,14 @@
+from ROOT import gDirectory, TH2F
+
 class Fitter2D(object):
+
+    def __init__(self, *args):
+        self.h2d = TH2F(*args)
     
     def draw2D(self, *args):
         self.h2d.Draw(*args)
         self.hmean.Draw('psame')
 
-            
     def fit(self, bin, opt='0'): 
         hslice = self.h2d.ProjectionY("", bin, bin, "")
         if not hslice.GetEntries(): 
@@ -18,3 +22,17 @@ class Fitter2D(object):
         sigma = func.GetParameter(2)
         dsigma = func.GetParError(2)
         return x, dx, mean, dmean, sigma, dsigma
+
+    def fit_slices(self):
+        self.h2d.FitSlicesY()
+        self.hmean = gDirectory.Get( self.h2d.GetName() + '_1' )
+        self.hsigma = gDirectory.Get( self.h2d.GetName() + '_2' )
+        # self.hsigma.SetYTitle('#sigma(MET_{x,y})')
+        self.hchi2 = gDirectory.Get( self.h2d.GetName() + '_chi2' )
+
+    def format(self, style, xtitle):
+        for hist in [self.hmean, self.hsigma, self.hchi2]: 
+            style.format(hist)
+            hist.SetTitle('')
+            hist.SetXTitle(xtitle)
+            
