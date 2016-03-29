@@ -1,4 +1,5 @@
 from ROOT import kBlack, TLatex, TCanvas, TPad, gStyle
+import copy
 
 def officialStyle(style):
     style.SetCanvasColor (0)
@@ -71,7 +72,7 @@ def officialStyle(style):
     style.SetTitleFont (42,"Y")
     style.SetOptStat (0)
 
-def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
+def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0, textScale=1.):
     latex = TLatex()
   
     t = gStyle.GetPadTopMargin()/(1-sp)
@@ -79,6 +80,7 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
     latex.SetTextSize(tmpTextSize)
     latex.SetNDC()
     textSize=latex.GetTextSize()
+    textSize*=textScale
 
     latex.SetName("lumiText")
     latex.SetTextFont(42)
@@ -126,7 +128,6 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0):
     latex.SetTextSize(textSize*0.76)
     
     if(simOnly):
-        print cmsxloc, simyloc
         latex.DrawLatex(cmsxloc, simyloc,"Simulation")
     
         
@@ -239,7 +240,14 @@ class CanvasRatio( TCanvas ):
         hist.Draw(*args, **kwargs)
         self.Update()
             
-
+    def draw_legend(self, legend):
+        self.legend = copy.deepcopy(legend)
+        legend.Dump()
+        frac_main = 1 - self.splitPad
+        print 'frac_main', frac_main
+        self.legend.SetY1(legend.GetY1())
+        self.legend.SetY2(legend.GetY2())
+        self.legend.Draw('same')
 
 if __name__ == "__main__":
 
@@ -266,7 +274,7 @@ if __name__ == "__main__":
     h2.Draw("same")
     traditional_style.format(h2)
 
-    legend = TLegend(0.65, 0.76, 0.9, 0.91)
+    legend = TLegend(0.65, 0.76, 0.9, 0.91, '', 'NDC')
     legend.AddEntry(h, "PF", "p")
     legend.AddEntry(h2, "Traditional", "p")
     legend.Draw()
@@ -276,6 +284,7 @@ if __name__ == "__main__":
     c2 = TCanvas("c2", "c2")
     h.Draw()
     h2.Draw('same')
+    legend.Draw()
     cmsPrel(-1, 8., True)    
 
     gPad.Update()
@@ -285,12 +294,12 @@ if __name__ == "__main__":
     h4 = h2.Clone('h4')
     cr.draw(h3, True)
     cr.draw(h4, True, 'same')
+    cr.draw_legend(legend)
     
     hratio = h3.Clone('hratio')
     hratio.Divide(h4)
     hratio.SetYTitle('ratio')
     cr.draw(hratio, False)
-
     gPad.Update()
     
     
