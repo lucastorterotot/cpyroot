@@ -168,11 +168,14 @@ traditional_style = HistStyle(
     markerColor=4,
     markerStyle=21,
     lineColor=4,
+    lineWidth=3,
+    lineStyle=7
 )
 pf_style = HistStyle(
     markerColor=2,
     markerStyle=8,
-    lineColor=2
+    lineColor=2,
+    lineWidth=3,
 )
 
 
@@ -282,9 +285,12 @@ if __name__ == "__main__":
     cmsPrel(25000., 8., True)
 
     c2 = TCanvas("c2", "c2")
-    h.Draw()
-    h2.Draw('same')
-    legend.Draw()
+    h.Draw('hist')
+    h2.Draw('histsame')
+    legend2 = TLegend(0.65, 0.76, 0.9, 0.91, '', 'NDC')
+    legend2.AddEntry(h, "PF", "l")
+    legend2.AddEntry(h2, "Traditional", "l")
+    legend2.Draw()
     cmsPrel(-1, 8., True)    
 
     gPad.Update()
