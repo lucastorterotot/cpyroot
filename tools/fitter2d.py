@@ -1,4 +1,4 @@
-from ROOT import gDirectory, TH2F
+from ROOT import gDirectory, TH2F, TH1F, TFile
 
 class Fitter2D(object):
 
@@ -35,4 +35,12 @@ class Fitter2D(object):
             style.format(hist)
             hist.SetTitle('')
             hist.SetXTitle(xtitle)
-            
+
+    def write(self):
+        outfile = TFile(self.h2d.GetName()+'.root', 'recreate')
+        for hist in [self.hmean, self.hsigma, self.hchi2, self.h2d]: 
+            hist.Clone()
+            hist.SetDirectory(outfile)
+        outfile.Write()
+        outfile.Close()
+        
