@@ -208,7 +208,7 @@ def officialStyle(style):
     style.SetStripDecimals(False)
     style.SetLineStyleString(11,"20 10")
     style.SetTitleSize (0.055,"Y")
-    style.SetTitleOffset(1.55,"Y")
+    style.SetTitleOffset(1.5,"Y")
     style.SetLabelOffset(0.010,"Y")
     style.SetLabelSize (0.050,"Y")
     style.SetLabelFont (42 ,"Y")
