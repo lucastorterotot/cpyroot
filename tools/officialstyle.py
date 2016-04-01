@@ -148,6 +148,8 @@ def setTDRStyle():
 
   
 def officialStyle(style):
+    style =  TStyle("tdrStyle","Style for P-TDR")
+
     style.SetCanvasColor (0)
     style.SetCanvasBorderSize(10)
     style.SetCanvasBorderMode(0)
@@ -219,6 +221,7 @@ def officialStyle(style):
     style.SetOptStat (0)
 
     style.SetLegendBorderSize(0)
+    style.cd()
 
 def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0, textScale=1.):
     latex = TLatex()
@@ -393,13 +396,14 @@ class CanvasRatio( TCanvas ):
             
     def draw_legend(self, legend):
         self.legend = copy.deepcopy(legend)
-        legend.Dump()
         frac_main = 1 - self.splitPad
-        print 'frac_main', frac_main
-        self.legend.SetY1(legend.GetY1())
-        self.legend.SetY2(legend.GetY2())
+        y1 = self.legend.GetY1()
+        y2 = self.legend.GetY2()
+        self.legend.SetY2(1-(1-y2)/frac_main)
+        self.legend.SetY1(1-(1-y1)/frac_main)
         self.legend.Draw()
-
+        print '-'*50
+        
 if __name__ == "__main__":
 
     from ROOT import gStyle, TH1F, gPad, TLegend, TF1
@@ -426,7 +430,10 @@ if __name__ == "__main__":
     h2.Draw("same")
     traditional_style.format(h2)
 
-    legend = TLegend(0.65, 0.76, 0.9, 0.91, '', 'NDC')
+    legend_args = (0.645, 0.79, 0.985, 0.91, '', 'NDC')
+
+    legend = TLegend(*legend_args)
+    legend.SetFillStyle(0)
     legend.AddEntry(h, "PF", "p")
     legend.AddEntry(h2, "Traditional", "p")
     legend.Draw()
@@ -436,7 +443,8 @@ if __name__ == "__main__":
     c2 = TCanvas("c2", "c2")
     h.Draw('hist')
     h2.Draw('histsame')
-    legend2 = TLegend(0.65, 0.76, 0.9, 0.91, '', 'NDC')
+    legend2 = TLegend(*legend_args)
+    legend2.SetFillStyle(0)
     legend2.AddEntry(h, "PF", "l")
     legend2.AddEntry(h2, "Traditional", "l")
     legend2.Draw()
