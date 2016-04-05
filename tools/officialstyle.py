@@ -1,9 +1,9 @@
-from ROOT import kBlack, TLatex, TCanvas, TPad, gStyle, TStyle, kWhite
+from ROOT import kBlack, TLatex, TCanvas, TPad, gStyle, TStyle, kWhite, TGaxis
 import copy
 
 def setTDRStyle():
   tdrStyle =  TStyle("tdrStyle","Style for P-TDR")
-
+  
    #for the canvas:
   tdrStyle.SetCanvasBorderMode(0)
   tdrStyle.SetCanvasColor(kWhite)
@@ -143,6 +143,9 @@ def setTDRStyle():
   tdrStyle.SetHatchesLineWidth(5)
   tdrStyle.SetHatchesSpacing(0.05)
 
+  tdrStyle.SetLegendBorderSize(0)
+  TGaxis.SetMaxDigits(3)
+
   tdrStyle.cd()
 
 
@@ -248,17 +251,18 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0, textScale=1.):
     if onLeft:
         cmsalign = 11
         cmsxloc = 0.204
+    xlumi = 1-gStyle.GetPadRightMargin()
     if (lumi > 0.):
         latex.SetTextAlign(31) # align left, right=31
         latex.SetTextSize(textSize*0.6/0.75)
         if(lumi > 1000. ):
-            latex.DrawLatex(0.93,lumyloc,
+            latex.DrawLatex(xlumi,lumyloc,
                             " {lumi} fb^{{-1}} ({energy} TeV)".format(
                                 lumi=lumi/1000.,
                                 energy=energy
                             ))
         else:
-            latex.DrawLatex(0.93,lumyloc,
+            latex.DrawLatex(xlumi,lumyloc,
                             " {lumi} pb^{{-1}} ({energy} TeV)".format(
                                 lumi=lumi,
                                 energy=energy
@@ -267,7 +271,7 @@ def cmsPrel(lumi,  energy,  simOnly,  onLeft=True,  sp=0, textScale=1.):
     else:
         latex.SetTextAlign(31) # align right=31
         latex.SetTextSize(textSize*0.6/0.75)
-        latex.DrawLatex(0.93,lumyloc," {energy} TeV".format(energy=energy))
+        latex.DrawLatex(xlumi,lumyloc," {energy} TeV".format(energy=energy))
   
  
     latex.SetTextAlign(cmsalign) # align left / right
@@ -408,25 +412,26 @@ if __name__ == "__main__":
 
     from ROOT import gStyle, TH1F, gPad, TLegend, TF1
 
-    officialStyle(gStyle)
-    # setTDRStyle()
+    # officialStyle(gStyle)
+    setTDRStyle()
     
     c1 = TCanvas("c1", "c1") 
     
-    h = TH1F("h", "; p_{T} (GeV); stuff_{index}^{Power}", 50, -40000, 40000)
+    h = TH1F("h", "; p_{T} (GeV); stuff_{index}^{Power}", 50, -44000, 44000)
     h.Sumw2()
     gaus1 = TF1('gaus1', 'gaus')
     gaus1.SetParameters(1, 0, 5000)
-    h.FillRandom("gaus1", 5000)
+    h.FillRandom("gaus1", 50000)
+    h.GetXaxis().SetNdivisions(5)
     h.Draw()
     pf_style.format(h)
 
     gPad.Update()
 
-    h2 = TH1F("h2", "; p_{T} (GeV); stuff_{Index}^{Power}", 50, -40000, 40000)
+    h2 = TH1F("h2", "; p_{T} (GeV); stuff_{Index}^{Power}", 50, -44000, 44000)
     h2.Sumw2()
     gaus1.SetParameters(1, 0, 10000)
-    h2.FillRandom("gaus1", 5000)
+    h2.FillRandom("gaus1", 50000)
     h2.Draw("same")
     traditional_style.format(h2)
 
