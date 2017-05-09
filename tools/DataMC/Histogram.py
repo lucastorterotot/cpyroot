@@ -107,7 +107,7 @@ class Histogram( object ):
 
         legend.AddEntry(self.obj, legendLine, opt)
 
-    def Draw(self, opt='', weighted=True):
+    def Draw(self, opt='hist', weighted=True):
         '''Draw the weighted (or original) histogram.'''
         if weighted is True:
             self.weighted.Draw(opt)
