@@ -1,4 +1,4 @@
-from CMGTools.RootTools.PersistentDict import PersistentDict
+from cpyroot.tools.PersistentDict import PersistentDict
 
 class Weight( PersistentDict ):
 

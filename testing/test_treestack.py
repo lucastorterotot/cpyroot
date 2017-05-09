@@ -1,6 +1,5 @@
 import unittest
 from cpyroot import *
-from testtree import create_tree
 import time
 
 file1 = 'test1.root'
@@ -28,6 +27,7 @@ class TreeStackTestCase(unittest.TestCase):
         
 
 if __name__ == '__main__':
+    from testtree import create_tree
     import os
     if not os.path.isfile(file1):
         create_tree(file1, 0, 1, 5000)

@@ -1,6 +1,6 @@
-from CMGTools.RootTools.PyRoot import * 
-from CMGTools.RootTools.Style import * 
-from CMGTools.RootTools.HistComparator import * 
+from cpyroot.tools.PyRoot import * 
+from cpyroot.tools.style import * 
+from cpyroot.tools.HistComparator import * 
 
 num = 0
 def hname():

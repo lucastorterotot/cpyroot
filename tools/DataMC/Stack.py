@@ -1,6 +1,6 @@
 import copy
 from ROOT import THStack, gPad, kGray
-from CMGTools.RootTools.Style import sBlue,sBlack
+from cpyroot.tools.style import sBlue,sBlack
 
 class Stack:
     '''Attempt to overcome the deficiencies of the THStack class.

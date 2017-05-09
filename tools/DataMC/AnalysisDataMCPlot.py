@@ -5,9 +5,9 @@ import fnmatch
 
 from ROOT import TFile
 
-from CMGTools.RootTools.DataMC.DataMCPlot import * 
-from CMGTools.RootTools.DataMC.Weight import * 
-from CMGTools.RootTools.Style import *
+from cpyroot.tools.DataMC.DataMCPlot import * 
+from cpyroot.tools.DataMC.Weight import * 
+from cpyroot.tools.style import *
 
 class AnalysisDataMCError( Exception ):
     def __init__(self, value):
@@ -167,7 +167,7 @@ if __name__ == '__main__':
 
     import sys
     from optparse import OptionParser
-    from CMGTools.RootTools.RootInit import *
+    from cpyroot.tools.RootInit import *
     
     parser = OptionParser()
     parser.usage = '''

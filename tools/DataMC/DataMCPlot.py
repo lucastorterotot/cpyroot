@@ -3,8 +3,8 @@ import copy
 
 from ROOT import TH1, THStack, TLegend, TLine, TPad
 
-from CMGTools.RootTools.DataMC.Histogram import Histogram
-from CMGTools.RootTools.DataMC.Stack import Stack
+from cpyroot.tools.DataMC.Histogram import Histogram
+from cpyroot.tools.DataMC.Stack import Stack
 
 
 def ymax(hists):
@@ -435,7 +435,7 @@ class DataMCPlot(object):
 if __name__ == '__main__':
     
     from ROOT import TH1F, TCanvas, gPad
-    from CMGTools.RootTools.Style import sBlue, sGreen, sRed, sData, formatPad
+    from cpyroot.tools.style import sBlue, sGreen, sRed, sData, formatPad
 
     plot = DataMCPlot('plot')
 
