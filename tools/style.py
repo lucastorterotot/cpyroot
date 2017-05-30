@@ -8,7 +8,7 @@ class Style:
                  markerSize=1,
                  lineStyle=1,
                  lineColor=1,
-                 lineWidth=2,
+                 lineWidth=3,
                  fillColor=None,
                  fillStyle=1001,
                  drawAsData=False):
@@ -44,9 +44,9 @@ class Style:
 
 sBlack = Style()
 sData = Style(fillStyle=0, markerSize=1.3, drawAsData=True)
-sBlue = Style(markerColor=4, fillColor=4)
+sBlue = Style(markerColor=4, lineColor=4)
 sGreen = Style(markerColor=8, fillColor=8)
-sRed = Style(markerColor=2, fillColor=2)
+sRed = Style(markerColor=2, lineColor=2)
 sYellow = Style(lineColor=1, markerColor=5, fillColor=5)
 sViolet = Style(lineColor=1, markerColor=kViolet, fillColor=kViolet)
 

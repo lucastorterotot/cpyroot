@@ -89,9 +89,9 @@ class Stack:
         '''Draw statistical errors if statErrors is True.'''
         if self.statErrors is False:
             return
-        #self.totalHist.weighted.SetFillColor(kGray)
-        self.totalHist.weighted.SetFillColor(1)
-        self.totalHist.weighted.SetFillStyle(3544)
+        self.totalHist.weighted.SetFillColor(kGray)
+        # self.totalHist.weighted.SetFillColor(1)
+        self.totalHist.weighted.SetFillStyle(3244)
         self.totalHist.Draw('samee2')
         
     def SetStyle(self, style ):

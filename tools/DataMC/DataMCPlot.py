@@ -38,7 +38,7 @@ class DataMCPlot(object):
         self.stack = None
         self.legendOn = True
         self.legend = None
-        self.legendBorders = 0.20, 0.46, 0.44, 0.89
+        self.legendBorders = (0.22, 0.65, 0.44, 0.92)
         self.legendPos = 'left'
         # self.lastDraw = None
         # self.lastDrawArgs = None
@@ -418,9 +418,9 @@ class DataMCPlot(object):
                 ymin = 0.01
             if ymax is None:
                 ymax = mx*1.3
-                centrality = self.supportHist.weighted.GetRMS()/(self.supportHist.weighted.GetXaxis().GetXmax() - self.supportHist.weighted.GetXaxis().GetXmin())
-                if centrality > 0.15:
-                    ymax = mx*2.0
+            #     centrality = self.supportHist.weighted.GetRMS()/(self.supportHist.weighted.GetXaxis().GetXmax() - self.supportHist.weighted.GetXaxis().GetXmin())
+            #     if centrality > 0.15:
+            #         ymax = mx*2.0
 
             self.supportHist.GetYaxis().SetRangeUser(ymin, ymax)
             self.axisWasSet = True
@@ -432,9 +432,9 @@ class DataMCPlot(object):
             else:
                 hist.Draw('SAME HIST')
 
-        if self.supportHist.weighted.GetMaximumBin() < self.supportHist.weighted.GetNbinsX()/2:
-            self.legendBorders = 0.62, 0.46, 0.88, 0.89
-            self.legendPos = 'right'
+##        if self.supportHist.weighted.GetMaximumBin() < self.supportHist.weighted.GetNbinsX()/2:
+##            self.legendBorders = 0.62, 0.46, 0.88, 0.89
+##            self.legendPos = 'right'
 
         self.DrawLegend(print_norm=print_norm)
         if TPad.Pad():
