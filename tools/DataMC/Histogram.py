@@ -59,6 +59,12 @@ class Histogram( object ):
             hist = self.obj
         return hist.Integral( 0, hist.GetNbinsX()+1)
 
+    def GetBinning(self):
+        '''return nbins, xmin, xmax'''
+        return self.obj.GetNbinsX(), \
+               self.obj.GetXaxis().GetXmin(), \
+               self.obj.GetXaxis().GetXmax()
+
     def Rebin(self, factor):
         '''Rebins by factor'''
         self.obj.Rebin( factor )

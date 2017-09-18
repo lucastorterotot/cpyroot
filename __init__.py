@@ -15,7 +15,6 @@ from tools.treestack import TreeStack
 from tools.style import *
 from tools.officialstyle import *
 from tools.fitter2d import Fitter2D
-import tools.DataMC as DataMC
 
 gROOT.Macro( os.path.expanduser( '~/rootlogon.C' ) )
 
