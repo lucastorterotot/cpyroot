@@ -21,9 +21,6 @@ class HistComparator(object):
         '''
         self.set(name, h1, h2, title1, title2)
         self.can, self.pad_main, self.pad_ratio = self.buildCanvas()
-
-    def __del__(self):
-        self.can.Close()
         
     def set(self, name, h1, h2, title1=None, title2=None):
         '''Change the histograms, in case we want to keep the same canvas

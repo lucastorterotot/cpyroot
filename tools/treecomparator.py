@@ -31,7 +31,7 @@ class TreeComparator(object):
         self.legend = None
         self.h1 = None
         self.h2 = None
-        self.comparator = None
+        self.plots = dict()
         
     def draw(self, var, cut='1',
              nbins=100, xmin=0, xmax=200):
@@ -68,8 +68,9 @@ class TreeComparator(object):
     
         print 'number of selected rows:', self.t1.GetSelectedRows(), self.t2.GetSelectedRows()
     
-        self.comparator = HistComparator(var, self.h1, self.h2)
-        self.comparator.draw()
+        histcomp = HistComparator(var, self.h1, self.h2)
+        self.plots['{}_{}'.format(var, cut)] = histcomp
+        histcomp.draw()
     
 ##
 ##def draw(var1=None, cut=1,
