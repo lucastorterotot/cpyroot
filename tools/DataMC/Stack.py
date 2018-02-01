@@ -1,6 +1,6 @@
 import copy
 from ROOT import THStack, gPad, kGray
-from cpyroot.tools.style import sBlue,sBlack
+from cpyroot.tools.style import sBlue, sBlack
 
 class Stack:
     '''Attempt to overcome the deficiencies of the THStack class.
@@ -34,6 +34,7 @@ class Stack:
         self.integral += hist.Yield( weighted=True )
         if self.totalHist is None:
             self.totalHist = copy.deepcopy( hist )
+##            self.totalHist.style = sBlack
         else:
             self.totalHist.Add( hist )
         
@@ -48,6 +49,7 @@ class Stack:
             self.obj.Add(hist.weighted)
             if self.totalHist is None:
                 self.totalHist = copy.deepcopy( hist )
+##                self.totalHist.style = sBlack
             elif hist.layer<1000.:
                 self.totalHist.Add( hist )
         self._Draw( opt, self.hists, xmin, xmax, ymin, ymax)
@@ -90,7 +92,6 @@ class Stack:
         if self.statErrors is False:
             return
         self.totalHist.weighted.SetFillColor(kGray)
-        # self.totalHist.weighted.SetFillColor(1)
         self.totalHist.weighted.SetFillStyle(3244)
         self.totalHist.Draw('samee2')
         

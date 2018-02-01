@@ -12,7 +12,7 @@ class HistComparator(object):
 
     CAN_NUM = 0
     
-    def __init__(self, name, h1, h2, title1=None, title2=None):
+    def __init__(self, name, h1, h2, title1=None, title2=None, canvas=None):
         '''Constructor.
 
         h1, h2: two TH1.
@@ -20,7 +20,7 @@ class HistComparator(object):
         name: will be used on the X axis.
         '''
         self.set(name, h1, h2, title1, title2)
-        self.can, self.pad_main, self.pad_ratio = self.buildCanvas()
+        self.can, self.pad_main, self.pad_ratio = self.buildCanvas(canvas)
         
     def set(self, name, h1, h2, title1=None, title2=None):
         '''Change the histograms, in case we want to keep the same canvas
@@ -42,11 +42,11 @@ class HistComparator(object):
         self.ratio.Divide(self.h2)
         self.ratio.SetStats(0)
         
-    def draw(self):
+    def draw(self, here=False):
         '''The canvas is created if needed.'''
-        if type(self.can) is not TCanvas:
-            self.can, self.pad_main, self.pad_ratio = self.buildCanvas()
-        self.can.Draw()
+##        if type(self.can) is not TCanvas:
+##            self.can, self.pad_main, self.pad_ratio = self.buildCanvas()
+##            self.can.Draw()
         self.pad_main.Draw()
         self.pad_ratio.Draw()
         self.pad_main.cd()
@@ -73,7 +73,7 @@ class HistComparator(object):
         rls = 0.075
         self.ratio.GetYaxis().SetLabelSize(rls)
         self.ratio.GetXaxis().SetLabelSize(rls)
-        self.ratio.GetYaxis().SetRangeUser(0.5, 1.5)
+        self.ratio.GetYaxis().SetRangeUser(0.8, 1.2)
         self.can.Modified()
         self.can.Update()
         self.can.cd()
@@ -83,10 +83,11 @@ class HistComparator(object):
             fname = self.name
         self.can.SaveAs( self.name + '.png' )
 
-    def buildCanvas(self):
-        can = TCanvas('can_{num}'.format(num=self.__class__.CAN_NUM),
-                      self.name,600,600)
-        self.__class__.CAN_NUM += 1
+    def buildCanvas(self, can=None):
+        if can is None:
+            can = TCanvas('can_{num}'.format(num=self.__class__.CAN_NUM),
+                          self.name,600,600)
+            self.__class__.CAN_NUM += 1
         can.cd()
         can.Draw()
         sep = 0.35
