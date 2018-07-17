@@ -108,8 +108,8 @@ class Histogram( object ):
             if legendLine is None:
                 legendLine = self.name
         opt = 'f'
-##        if self.weighted.GetFillStyle()==0:
-##            opt = 'p'
+        if not self.stack:
+            opt = 'p'
         legend.AddEntry(self.obj, legendLine, opt)
 
     def Draw(self, opt='hist', weighted=True):

@@ -8,7 +8,6 @@ from cpyroot.tools.DataMC.Histogram import Histogram
 from cpyroot.tools.DataMC.Stack import Stack
 from cpyroot.tools.style import Style
 
-
 def ymax(hists):
     def getmax(h):
         hw = h.weighted
@@ -30,7 +29,7 @@ class DataMCPlot(object):
     _f_keeper = {}
     _t_keeper = {}
 
-    def __init__(self, name, histPref=None):
+    def __init__(self, name, histPref=None, legend_position='right'):
         self.histosDict = {}
         self.histos = []
         self.supportHist = None
@@ -38,7 +37,11 @@ class DataMCPlot(object):
         self.stack = None
         self.legendOn = True
         self.legend = None
-        self.legendBorders = (0.22, 0.65, 0.44, 0.92)
+        leg_dx, leg_dy = 0.22, 0.27
+        leg_x, leg_y = 0.72, 0.66
+        if legend_position == 'left':
+            leg_x, leg_y = 0.22
+        self.legendBorders = (leg_x, leg_y, leg_x + leg_dx, leg_y + leg_dy)            
         self.legendPos = 'left'
         # self.lastDraw = None
         # self.lastDrawArgs = None
@@ -527,6 +530,7 @@ class DataMCPlot(object):
             hist.layer = pref['layer']
             hist.SetStyle(pref['style'])
             hist.legendLine = pref['legend']
+            hist.stack = pref['stack']
 
     def __str__(self):
         if self.stack is None:
