@@ -1,3 +1,3 @@
 export CPYROOT=$PWD
 export PYTHONPATH=$CPYROOT/..:$PYTHONPATH
-export PATH=$CPYROOT:$PATH
+export PATH=$CPYROOT/scripts:$PATH

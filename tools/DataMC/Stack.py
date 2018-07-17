@@ -1,6 +1,6 @@
 import copy
 from ROOT import THStack, gPad, kGray
-from cpyroot.tools.style import sBlue, sBlack
+from cpyroot.tools.style import sBlue, sBlack, Style
 
 class Stack:
     '''Attempt to overcome the deficiencies of the THStack class.
@@ -13,8 +13,8 @@ class Stack:
     
     '''
 
-    STAT_ERRORS = True
-    STYLE = copy.copy(sBlack)
+    STAT_ERRORS = False
+    STYLE = Style(lineColor=1, fillStyle=0)
     STYLE.markerStyle = 1 
     
     def __init__(self, name, ytitle=None):
