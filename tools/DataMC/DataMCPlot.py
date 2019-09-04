@@ -2,7 +2,7 @@ from operator import attrgetter
 import copy
 import fnmatch
 
-from ROOT import TLegend, TLine, TPad, TFile, gROOT
+from ROOT import TLegend, TLine, TPad, TFile, gROOT, TCanvas, gPad
 
 from cpyroot.tools.DataMC.Histogram import Histogram
 from cpyroot.tools.DataMC.Stack import Stack
@@ -273,7 +273,7 @@ class DataMCPlot(object):
         self.dataOverMCHist = copy.deepcopy(dataHist)
         # self.dataOverMCHist.Add(mcHist, -1)
         self.dataOverMCHist.Divide(mcHist)
-        self.dataOverMCHist.Draw()
+        self.dataOverMCHist.Draw('pe')
         yaxis = self.dataOverMCHist.GetYaxis()
         yaxis.SetRangeUser(ymin + 1., ymax + 1.)
         yaxis.SetTitle('Data/MC')
@@ -370,7 +370,7 @@ class DataMCPlot(object):
         line.SetLineStyle(2)
         line.DrawLine(xmin, y0+frac, xmax, y0+frac)
         line.DrawLine(xmin, y0-frac, xmax, y0-frac)
-
+        
     def GetStack(self):
         '''Returns stack; builds stack if not there yet'''
         if not self.stack:
