@@ -1,4 +1,4 @@
-from ROOT import TColor, kViolet, kBlue, kRed, kAzure
+from ROOT import TColor, kViolet, kBlue, kRed, kAzure, kOrange, kSpring
 
 class Style:
 
