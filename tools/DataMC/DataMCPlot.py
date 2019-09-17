@@ -37,8 +37,8 @@ class DataMCPlot(object):
         self.stack = None
         self.legendOn = True
         self.legend = None
-        leg_dx, leg_dy = 0.22, 0.27
-        leg_x, leg_y = 0.72, 0.66
+        leg_dx, leg_dy = 0.33, 0.27
+        leg_x, leg_y = 0.60, 0.64
         if legend_position == 'left':
             leg_x, leg_y = 0.22
         self.legendBorders = (leg_x, leg_y, leg_x + leg_dx, leg_y + leg_dy)            
@@ -264,6 +264,8 @@ class DataMCPlot(object):
         stackedHists = []
         dataHist = None
         for hist in self._SortedHistograms():
+            if 'signal' in hist.name:
+                continue
             if hist.stack is False:
                 dataHist = hist
                 continue
