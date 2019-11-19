@@ -110,6 +110,8 @@ class Histogram( object ):
         opt = 'f'
         if not self.stack:
             opt = 'p'
+            if 'signal' in self.obj.GetName():
+                opt = 'l'
         legend.AddEntry(self.obj, legendLine, opt)
 
     def Draw(self, opt='hist', weighted=True):
