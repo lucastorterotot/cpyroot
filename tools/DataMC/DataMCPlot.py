@@ -96,6 +96,7 @@ class DataMCPlot(object):
 
         Histograms will be drawn by increasing layer.'''
         tmp = Histogram(name, histo, layer, legendLine, stack=stack)
+        tmp.NormalizeToBinWidth()
         self.histos.append(tmp)
         self.histosDict[name] = tmp
         self._ApplyPrefs()
