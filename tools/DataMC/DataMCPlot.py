@@ -38,7 +38,7 @@ class DataMCPlot(object):
         self.legendOn = True
         self.legend = None
         leg_dx, leg_dy = 0.33, 0.27
-        leg_x, leg_y = 0.60, 0.64
+        leg_x, leg_y = 0.66, 0.60
         if legend_position == 'left':
             leg_x, leg_y = 0.22
         self.legendBorders = (leg_x, leg_y, leg_x + leg_dx, leg_y + leg_dy)            
