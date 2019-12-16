@@ -91,12 +91,13 @@ class DataMCPlot(object):
                 if hist.style.drawAsData:
                     hist.Blind(minx, maxx)
 
-    def AddHistogram(self, name, histo, layer=0, legendLine=None, stack=True):
+    def AddHistogram(self, name, histo, layer=0, legendLine=None, stack=True, NormalizeToBinWidth = True):
         '''Add a ROOT histogram, with a given name.
 
         Histograms will be drawn by increasing layer.'''
         tmp = Histogram(name, histo, layer, legendLine, stack=stack)
-        tmp.NormalizeToBinWidth()
+        if NormalizeToBinWidth:
+            tmp.NormalizeToBinWidth()
         self.histos.append(tmp)
         self.histosDict[name] = tmp
         self._ApplyPrefs()
